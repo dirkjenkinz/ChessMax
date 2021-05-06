@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChessMax</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+    <link href='../css/style.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div class='container-fluid'>
+
+        <div class='row top'>
+            <div class='col'>
+                <button type='button' class='btn btn-danger btn-block font-weight-bold' id='btn_restart'>NEW
+                    GAME</button>
+            </div>
+            <div class='col'>ChessMax</div>
+            <div class='col' id='cancel_move'>
+                <button type='button' class='btn btn-danger btn-block font-weight-bold' id='btn_cancel'>CANCEL
+                    MOVE</button>
+            </div>
+        </div>
+
+
+        <div class='row' id='middle'>
+            <div class='col-md-5' id='left'>
+                <div class='row' id='mode-select'>
+                    <div class='col'>
+                        <div class='btn-group btn-group-smx' role='group' id='group-select' aria-label="Mode Select">
+                            <button type='button' class='btn btn-danger btn-mode' id='m-duplex'>Duplex Mode</button>
+                            <button type='button' class='btn btn-danger btn-mode' id='m-white'>White v. Computer</button>
+                            <button type='button' class='btn btn-danger btn-mode' id='m-black'>Black v. Computer</button>
+                        </div>
+                    </div>
+                    <div class='col-md-4' id='mode-indicator'>
+                        MODE: DUPLEX
+                    </div>
+                </div>
+                <div class='row' id='current-move'>
+                    <table class='table table-bordered' id='table-move'>
+                        <tr>
+                            <th id='to-play' colspan='4'></th>
+                        </tr>
+                    </table>
+                </div>
+                <div class='row' id='fen'>
+                    <table class='table table-bordered table-sm' id='tab-fen'>
+                        <thead class='thead-dark'>
+                            <tr>
+                                <th colspan='2'>Forsyth-Edwards Notation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th width='40%'>Piece Placement</th>
+                                <td id='piece-placement'></td>
+                            </tr>
+                            <tr>
+                                <th>Active Colour</th>
+                                <td id='active-colour'></td>
+                            </tr>
+                            <tr>
+                                <th>Castling Ability</th>
+                                <td id='castling-ability'></td>
+                            </tr>
+                            <tr>
+                                <th>En Passant Target Square</th>
+                                <td id='en-passant'></td>
+                            </tr>
+                            <tr>
+                                <th>Halfmove Clock</th>
+                                <td id='halfmove-clock'></td>
+                            </tr>
+                            <tr>
+                                <th>Fullmove Counter</th>
+                                <td id='fullmove-counter'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class='row' id='auto'>
+                    <button type='button' class='btn btn-danger btn-block font-weight-bold' id='btn_autoplay'>
+                        AUTOMOVE
+                    </button>
+                </div>
+                <div class='row'><br></div>
+                <div class='row' id='show-moves'>
+                    <div class='col'></div>
+                    <div class='col'>
+                        <button type='button' class='btn btn-danger btn-block font-weight-bold' id='btn_moves'>Possible
+                            Moves</button>
+                    </div>
+                    <div class='col'></div>
+                </div>
+                <div class='row' id='black-tank'>
+                    <table id='tab_bt'>
+                        <tbody>
+                            <tr>
+                                <td id='bt0' width='50'></td>
+                                <td id='bt1' width='50'></td>
+                                <td id='bt2' width='50'></td>
+                                <td id='bt3' width='50'></td>
+                                <td id='bt4' width='50'></td>
+                                <td id='bt5' width='50'></td>
+                                <td id='bt6' width='50'></td>
+                                <td id='bt7' width='50'></td>
+                            </tr>
+                            <tr>
+                                <td id='bt8' width='50'></td>
+                                <td id='bt9' width='50'></td>
+                                <td id='bt10' width='50'></td>
+                                <td id='bt11' width='50'></td>
+                                <td id='bt12' width='50'></td>
+                                <td id='bt13' width='50'></td>
+                                <td id='bt14' width='50'></td>
+                                <td id='bt15' width='50'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class='row' id='white-tank'>
+                    <table id='tab_wt'>
+                        <tbody>
+                            <tr>
+                                <td id='wt0' width='50'></td>
+                                <td id='wt1' width='50'></td>
+                                <td id='wt2' width='50'></td>
+                                <td id='wt3' width='50'></td>
+                                <td id='wt4' width='50'></td>
+                                <td id='wt5' width='50'></td>
+                                <td id='wt6' width='50'></td>
+                                <td id='wt7' width='50'></td>
+                            </tr>
+                            <tr>
+                                <td id='wt8' width='50'></td>
+                                <td id='wt9' width='50'></td>
+                                <td id='wt10' width='50'></td>
+                                <td id='wt11' width='50'></td>
+                                <td id='wt12' width='50'></td>
+                                <td id='wt13' width='50'></td>
+                                <td id='wt14' width='50'></td>
+                                <td id='wt15' width='50'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class='row' id='-white-tank'></div>
+            </div>
+            <div class='col'>
+                <div class='row' id='board'></div>
+                <div id="pick" class="modal fade row" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Promote pawn to...?</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-danger promote" id='btn-rook'
+                                        data-dismiss="modal">Rook</button>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button type="button" class="btn btn-danger promote" id='btn-knight'
+                                        data-dismiss="modal">Knight</button>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button type="button" class="btn btn-danger promote" id='btn-bishop'
+                                        data-dismiss="modal">Bishop</button>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button type="button" class="btn btn-danger promote" id='btn-queen'
+                                        data-dismiss="modal">Queen</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='col' id='game-log'>
+            </div>
+        </div><!-- end of row id='middle'-->
+
+    </div>
+    <script src='../control/play.js' type='module'></script>
+    <script src='../control/validate/pawn.js'></script>
+    <script src='../control/validate/king.js'></script>
+    <script src='../control/validate/queen.js'></script>
+    <script src='../control/validate/knight.js'></script>
+    <script src='../control/validate/rook.js'></script>
+    <script src='../control/validate/bishop.js'></script>
+    <script src='../control/validate/check-for-check.js'></script>
+    <script src='../control/validate/validate-move.js'></script>
+    <script src='../control//show-moves.js'></script>
+    <script src='../control/make-move.js'></script>
+    <script src='../control/make-map.js'></script>
+    <script src='../control/make-board.js'></script>
+    <script src='../control/chart/make-chart.js'></script>
+    <script src='../control/chart/chart-queen.js'></script>
+    <script src='../control/chart/chart-king.js'></script>
+    <script src='../control/chart/chart-bishop.js'></script>
+    <script src='../control/chart/chart-rook.js'></script>
+    <script src='../control/chart/chart-pawn.js'></script>
+    <script src='../control/chart/chart-knight.js'></script>
+    <script src='../control/fen.js'></script>
+    <script src='../control/auto.js'></script>
+    <script src='../control/log.js'></script>
+</body>
+
+</html>

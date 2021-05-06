@@ -1,0 +1,111 @@
+body {
+    background: lightslategray;
+}
+
+thead th {
+    position: -webkit-sticky; /* for Safari */
+    position: sticky;
+    top: 0;
+  }
+  
+  tbody th {
+    position: -webkit-sticky; /* for Safari */
+    position: sticky;
+    left: 0;
+  }
+
+#to-play{
+    background: lightseagreen;
+}
+
+.top{
+    text-align: center;
+    font-weight: bold;
+    font-size: 200%;
+    border: 4px gold double;
+    padding-top: 10px;
+}
+
+#board {
+    text-align: center;
+    padding-right:20px;   
+ }
+
+ .head-colour {
+    background:lightskyblue;
+}
+
+ .white{
+     background: white;
+     color: black;
+ }
+
+ .black{
+     background: black;
+     color: white;
+ }
+
+ .redSquare{
+    background: red;
+    color: white;
+}
+
+img {
+    border-radius: 50%;
+ }
+
+ #mode-select {
+     padding-bottom: 20px;
+ }
+
+ #mode-indicator {
+     background: black;
+     color: white;
+     font-weight:bold;
+     text-align: center;
+     padding-top:4px;
+     border: white solid 4px;
+ }
+
+ .btn-log {
+    padding: 0;
+    background: cornflowerblue;
+}
+
+#select {
+     margin: 10px;
+     padding: 10px;
+     background:lightskyblue;
+     border: double gold 2px;
+ }
+
+ .selected {
+    border: red 4px double;
+}
+
+ #left {
+    padding: 30px;
+ }
+
+ #right, #to-play, #current-move {
+    color: black;
+    font-weight: bold;
+    font-size: 150%;
+ }
+
+ #show-chart, #game-log {
+    font-size: 80%;
+    margin: 5px;
+    overflow-y: auto;
+    height: 700px;
+ }
+
+ #table-move {
+    text-align: center;
+ }
+
+ .promote {
+     padding:10px;
+     margin: 10px;  
+ }
+
