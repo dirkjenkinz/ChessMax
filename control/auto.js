@@ -25,7 +25,7 @@ const autoplay = move => {
     };
 
     move.chart = c;
-    removeInvalidMoves2(move);
+    removeInvalidMoves(move);
     c = move.chart;
 
     let randomNumber = Math.floor(Math.random() * c.length);

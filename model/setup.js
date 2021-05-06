@@ -111,7 +111,6 @@ let move = {
     fen: startFen,
     map: startMap,
     chart: [],
-    notation_chart: [],
     start: start,
     squareClick: squareClick,
     promotePiece: promotePiece,

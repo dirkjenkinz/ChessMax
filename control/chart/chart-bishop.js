@@ -13,26 +13,17 @@ const buildBishop = (move, i) => {
     m2 = strip(m2, move.map, player);
     m3 = strip(m3, move.map, player);
 
-    let n0 = convert1(move, m0);
-    let n1 = convert1(move, m1);
-    let n2 = convert1(move, m2);
-    let n3 = convert1(move, m3);
-
     for (let a = 0; a < m0.length; a++) {
         move.chart[i].push(m0[a]);
-        move.notation_chart[i].push(n0[a]);
     };
     for (let a = 0; a < m1.length; a++) {
         move.chart[i].push(m1[a]);
-        move.notation_chart[i].push(n1[a])
     };
     for (let a = 0; a < m2.length; a++) {
         move.chart[i].push(m2[a]);
-        move.notation_chart[i].push(n2[a])
     };
     for (let a = 0; a < m3.length; a++) {
         move.chart[i].push(m3[a]);
-        move.notation_chart[i].push(n3[a])
     };
 };
 

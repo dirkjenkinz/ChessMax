@@ -18,7 +18,6 @@ const buildKnight = (move, i) => {
         if (r > -1 && c > -1 && r < 8 && c < 8) {
             if (move.map[r][c].substring(0, 1) != player) {
                 move.chart[i].push([r, c, move.map[r][c]]);
-                move.notation_chart[i].push(convert2(move, [r, c, move.map[r][c]]));
             };
         };
     };

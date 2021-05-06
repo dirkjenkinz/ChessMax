@@ -4,21 +4,20 @@ const makeChart = (move) => {
     removeInvalidMoves(move);
 };
 
+
+// steps through the board - builds array showing what piece is on what square
 const buildChart = (move) => {
     move.chart = [];
     for (let row = 0; row < 8; row++) {
         for (let column = 0; column < 8; column++) {
             let piece = move.map[row][column];
-            move.chart.push([[piece, row, column]]);
-            let p = piece.substring(1);
-            let px = move.pieces1.indexOf(p);
-            let py = move.pieces2[px];
-            let r = parseInt(row) + 1;
-            move.notation_chart.push([move.player + ' ' + py, move.alpha[column], r]);
+            move.chart.push([[piece, row, column]]);   
         };
     };
 };
 
+
+// expands the chart array to show possible moves for each piece on the board
 const chartMoves = (move) => {
     for (let i = 0; i < move.chart.length; i++) {
         switch (move.chart[i][0][0]) {
@@ -48,47 +47,6 @@ const chartMoves = (move) => {
                 break;
         };
     };
-};
-
-
-const convert1 = (move, m) => {
-    n = [];
-    for (let i = 0; i < m.length; i++) {
-        let row = m[i][0];
-        let column = move.alpha[m[i][1]];
-        let piece = m[i][2];
-        let p = '';
-        if (piece !== 'XX') {
-            if (piece.substring(0, 1) === 'W') {
-                p = 'WHITE'
-            } else {
-                p = 'BLACK'
-            };
-            let x = move.pieces1.indexOf(piece.substring(1));
-            p = p + ' ' + move.pieces2[x];
-        }
-        n.push([column, row, p]);
-    };
-    return n;
-};
-
-const convert2 = (move, m) => {
-    n = [];
-    let row = m[0];
-    let column = move.alpha[m[1]];
-    let piece = m[2];
-    let p = '';
-    if (piece !== 'XX') {
-        if (piece.substring(0, 1) === 'W') {
-            p = 'WHITE'
-        } else {
-            p = 'BLACK'
-        };
-        let x = move.pieces1.indexOf(piece.substring(1));
-        p = p + ' ' + move.pieces2[x];
-    }
-    n.push([column, row, p]);
-    return n;
 };
 
 const removeInvalidMoves = (move) => {

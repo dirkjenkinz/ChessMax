@@ -15,13 +15,11 @@ const buildRook = (move, i) => {
         if (move.map[row][startColumn] !== 'XX' && !stop) {
             if (move.map[row][startColumn].substring(0, 1) === opponent) {
                 move.chart[i].push([row, startColumn, move.map[row][startColumn]]);
-                move.notation_chart[i].push(convert2(move, [row, startColumn, move.map[row][startColumn]]));
             };
             stop = true;
         }
         if (move.map[row][startColumn] === 'XX' && !stop) {
             move.chart[i].push([row, startColumn, move.map[row][startColumn]]);
-            move.notation_chart[i].push(convert2(move, [row, startColumn, move.map[row][startColumn]]));
         };
     };
     // forward (down column - column static - row decremented);
@@ -30,13 +28,11 @@ const buildRook = (move, i) => {
         if (move.map[row][startColumn] !== 'XX' && !stop) {
             if (move.map[row][startColumn].substring(0, 1) === opponent) {
                 move.chart[i].push([row, startColumn, move.map[row][startColumn]]);
-                move.notation_chart[i].push(convert2(move, [row, startColumn, move.map[row][startColumn]]));
             };
             stop = true;
         }
         if (move.map[row][startColumn] === 'XX' && !stop) {
             move.chart[i].push([row, startColumn, move.map[row][startColumn]]);
-            move.notation_chart[i].push(convert2(move, [row, startColumn, move.map[row][startColumn]]));
         };
     };
     // forward (across row - row static - column incremented);
@@ -45,13 +41,11 @@ const buildRook = (move, i) => {
         if (move.map[startRow][column] !== 'XX' && !stop) {
             if (move.map[startRow][column].substring(0, 1) === opponent) {
                 move.chart[i].push([startRow, column, move.map[startRow][column]]);
-                move.notation_chart[i].push(convert2(move, [startRow, column, move.map[startRow][column]]));
             };
             stop = true;
         }
         if (move.map[startRow][column] === 'XX' && !stop) {
             move.chart[i].push([startRow, column, move.map[startRow][column]]);
-            move.notation_chart[i].push(convert2(move, [startRow, column, move.map[startRow][column]]));
         };
     };
     // forward (across row - row static - column decremented);
@@ -60,13 +54,11 @@ const buildRook = (move, i) => {
         if (move.map[startRow][column] !== 'XX' && !stop) {
             if (move.map[startRow][column].substring(0, 1) === opponent) {
                 move.chart[i].push([startRow, column, move.map[startRow][column]]);
-                move.notation_chart[i].push(convert2(move, [startRow, column, move.map[startRow][column]]));
             };
             stop = true;
         }
         if (move.map[startRow][column] === 'XX' && !stop) {
             move.chart[i].push([startRow, column, move.map[startRow][column]]);
-            move.notation_chart[i].push(convert2(move, [startRow, column, move.map[startRow][column]]));
         };
     };
 };
