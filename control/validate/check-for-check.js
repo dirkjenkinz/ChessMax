@@ -43,16 +43,12 @@ const checkForCheckMate = (move) => {
         let ok = false;
         for (let j = 1; j < item.length; j++) {
             let to = item[j];
-            if (to[0] !== '@') {
-                if (check(move, from, to)) {
-                    c[i][j] = ['@'];
-                } else {
-                    ok = true;
-                };
+            if (!check(move, from, to)) {
+                ok = true;
             };
         };
         if (!ok) {
-            c[i][0] = ['@'];
+            c[i][0] = ['4'];
         };
     };
 

@@ -11,7 +11,7 @@ const buildChart = (move) => {
     for (let row = 0; row < 8; row++) {
         for (let column = 0; column < 8; column++) {
             let piece = move.map[row][column];
-            move.chart.push([[piece, row, column]]);   
+            move.chart.push([[piece, row, column]]);
         };
     };
 };
@@ -51,115 +51,37 @@ const chartMoves = (move) => {
 
 const removeInvalidMoves = (move) => {
     let c = [];
-    for (let i = 0; i < move.chart.length; i++) {
+    for (let i = 0; i < move.chart.length; i++) {                     // remove non-moves
         let item = move.chart[i];
         if (item[0][0].substring(0, 1) && item.length > 1) {
             c.push(item);
         };
     };
 
-    let cTemp1 = [];
+    let temp1 = [];
 
-    for (let i = 0; i < c.length; i++) {
+    for (let i = 0; i < c.length; i++) {                // step through chart
         let item = c[i];
         let from = item[0];
         let ok = false;
-        if (from[0][0] !== '@'){
-            cTemp1.push(item);
-        }
-    };
-
-    c = cTemp1;
-     
-    for (let i = 0; i < c.length; i++) {
-        let item = c[i];
-        let from = item[0];
-        let ok = false;
-        for (let j = 1; j < item.length; j++) {
+        let current = [c[i][0]];
+        for (let j = 1; j < item.length; j++) {         // step through 'to' components
             let to = item[j];
-            if (to[0] !== '@') {
-                if (check(move, from, to)) {
-                    c[i][j] = ['@'];
-                } else {
-                    ok = true;
-                };
+            if (!check(move, from, to)) {               // if move does not result in check
+                current.push(to)                        // preserve move
             };
         };
-        if (!ok) {
-            c[i][0] = ['@'];
-        };
+        temp1.push(current);
     };
 
+    c = [];
 
-    let cTemp = [];
-    for (let i = 0; i < c.length; i++) {
-        let ok = false;
-        for (let j = 1; j < c[i].length; j++) {
-            if (c[i][j][0] !== '@') {
-                ok = true;
-            };
-        };
-        if (ok) {
-            cTemp.push(c[i]);
+    for (let i = 0; i < temp1.length; i++){             // remove all supercomponents with no 'to' components left
+        if (temp1[i].length > 1) {
+            c.push(temp1[i]);
         }
-    };
-    move.chart = cTemp;
-};
-
-const removeInvalidMoves2 = (move) => {
-    let c = [];
-    for (let i = 0; i < move.chart.length; i++) {
-        let item = move.chart[i];
-        if (item[0][0].substring(0, 1) && item.length > 1) {
-            c.push(item);
-        };
-    };
-
-    let cTemp1 = [];
-
-    for (let i = 0; i < c.length; i++) {
-        let item = c[i];
-        let from = item[0];
-        let ok = false;
-        if (from[0][0] !== '@'){
-            cTemp1.push(item);
-        }
-    };
-
-    c = cTemp1;
-     
-    for (let i = 0; i < c.length; i++) {
-        let item = c[i];
-        let from = item[0];
-        let ok = false;
-        for (let j = 1; j < item.length; j++) {
-            let to = item[j];
-            if (to[0] !== '@') {
-                if (check(move, from, to)) {
-                    c[i][j] = ['@'];
-                } else {
-                    ok = true;
-                };
-            };
-        };
-        if (!ok) {
-            c[i][0] = ['@'];
-        };
-    };
-
-    let cTemp = [];
-    for (let i = 0; i < c.length; i++) {
-        let ok = false;
-        let tempArray = c[i][0];
-        tempArray.push[c[i][0]];
-        for (let j = 1; j < c[i].length; j++) {
-            if (c[i][j][0] !== '@') {
-                tempArray.push(c[i][j])
-            };
-        };
-        cTemp.push(tempArray);
-    };
-    move.chart = cTemp;
+    }
+    move.chart = c;
 };
 
 const check = (move, from, to) => {

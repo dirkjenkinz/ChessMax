@@ -1,5 +1,5 @@
 const buildRook = (move, i) => {
-    let player = move.chart[i][0][0].substring(0, 1)
+    let player = move.chart[i][0][0].substring(0, 1);
     let opponent;
     if (player === 'W') {
         opponent = 'B';

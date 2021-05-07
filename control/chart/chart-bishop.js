@@ -1,7 +1,7 @@
 const buildBishop = (move, i) => {
-    let player = move.chart[i][0][0].substring(0, 1)
-    let r = move.chart[i][0][1];
-    let c = move.chart[i][0][2];
+    let player = move.chart[i][0][0].substring(0, 1)      // black or white
+    let r = move.chart[i][0][1];                          // row
+    let c = move.chart[i][0][2];                          // column
 
     let m0 = [[r + 1, c + 1], [r + 2, c + 2], [r + 3, c + 3], [r + 4, c + 4], [r + 5, c + 5], [r + 6, c + 6], [r + 7, c + 7]];
     let m1 = [[r - 1, c + 1], [r - 2, c + 2], [r - 3, c + 3], [r - 4, c + 4], [r - 5, c + 5], [r - 6, c + 6], [r - 7, c + 7]];
