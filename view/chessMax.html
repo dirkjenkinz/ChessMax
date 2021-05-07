@@ -19,7 +19,6 @@
 
 <body>
     <div class='container-fluid'>
-
         <div class='row top'>
             <div class='col'>
                 <button type='button' class='btn btn-danger btn-block font-weight-bold' id='btn_restart'>NEW
@@ -32,21 +31,22 @@
             </div>
         </div>
 
+        <div class='row top' id='mode-select'>
+            <div class='col-md-4'>
+                <div class='btn-group btn-group-smx' role='group' id='group-select' aria-label="Mode Select">
+                    <button type='button' class='btn btn-danger btn-mode' id='m-white'>White v. Computer</button>
+                    <button type='button' class='btn btn-danger btn-mode' id='m-black'>Black v. Computer</button>
+                    <button type='button' class='btn btn-danger btn-mode' id='m-duplex'>Duplex Mode</button>
+                </div>
+            </div>
+            <div class='col' id='mode-indicator'>
+                MODE: DUPLEX
+            </div>
+        </div>
+
 
         <div class='row' id='middle'>
             <div class='col-md-5' id='left'>
-                <div class='row' id='mode-select'>
-                    <div class='col'>
-                        <div class='btn-group btn-group-smx' role='group' id='group-select' aria-label="Mode Select">
-                            <button type='button' class='btn btn-danger btn-mode' id='m-duplex'>Duplex Mode</button>
-                            <button type='button' class='btn btn-danger btn-mode' id='m-white'>White v. Computer</button>
-                            <button type='button' class='btn btn-danger btn-mode' id='m-black'>Black v. Computer</button>
-                        </div>
-                    </div>
-                    <div class='col-md-4' id='mode-indicator'>
-                        MODE: DUPLEX
-                    </div>
-                </div>
                 <div class='row' id='current-move'>
                     <table class='table table-bordered' id='table-move'>
                         <tr>
