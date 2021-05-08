@@ -18,6 +18,22 @@ const startFen = {
     'fullmoveCounter': '1'
 };
 
+const saveGame = () => {
+    let name = '_c_' + $('#gname').val();
+    localStorage.setItem(name, JSON.stringify(move.fen));
+};
+
+const displaySavedGames = () => {
+    move.storage = [];
+    for (var i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        if (key.substring(0, 3) === '_c_') {
+            move.storage.push([localStorage.key(i).substring(3), JSON.parse(localStorage.getItem(localStorage.key(i)))]);
+        }
+    };
+    showFiles(move);
+};
+
 const squareClick = e => {
     if (move.phase === 'from') {
         phaseFrom(move, e);
@@ -29,7 +45,8 @@ const squareClick = e => {
 
 const start = () => {
     $('#pick').hide();
-    $('#btn_cancel').hide();
+    $('#btn_cancel').attr("disabled", true);
+    $('#btn_save').attr("disabled", true);
     $('#piece-placement').text(move.fen.piecePlacement);
     $('#active-colour').text(move.fen.activeColour);
     $('#castling-ability').text(move.fen.castlingAbility);
@@ -46,7 +63,7 @@ const cancelMove = () => {
     $('#piece').text('');
     $('#from-box').text('');
     $('#to-box').text('');
-    $('#btn_cancel').hide();
+    $('#btn_cancel').attr("disabled", true);
 };
 
 const promotePiece = id => {
@@ -80,7 +97,7 @@ const promotePiece = id => {
 let move = {
     'pieces1': 'RNBQKP',
     'pieces2': ['Rook', 'Knight', 'Bishop', 'Queen', 'King', 'Pawn'],
-    'alpha':  ['a','b','c','d','e','f','g','h'],
+    'alpha': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'],
     'player': 'WHITE',
     'from': {
         'id': '',
@@ -111,11 +128,15 @@ let move = {
     fen: startFen,
     map: startMap,
     chart: [],
+    storage: [],
+    log: [],
+    autoplay: autoplay,
     start: start,
     squareClick: squareClick,
     promotePiece: promotePiece,
     cancelMove: cancelMove,
-    autoplay: autoplay
+    saveGame: saveGame,
+    displaySavedGames: displaySavedGames
 };
 
-export {move};
+export { move };

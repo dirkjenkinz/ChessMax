@@ -48,7 +48,7 @@ const checkForCheckMate = (move) => {
             };
         };
         if (!ok) {
-            c[i][0] = ['4'];
+            c[i][0] = ['*'];
         };
     };
 

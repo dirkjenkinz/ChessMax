@@ -15,7 +15,7 @@ const phaseFrom = (move, e) => {
     let id = e.currentTarget.id;
     let legitimate = checkFrom(move, id);
     if (legitimate) {
-        $('#btn_cancel').show();
+        $('#btn_cancel').attr("disabled", false);;
         move.phase = 'to';
     }
 };
@@ -46,7 +46,7 @@ const phaseTo = (move, e) => {
     }; 
 
     if (legitimate) {
-        $('#btn_cancel').hide();
+        $('#btn_cancel').attr("disabled", true);
         makeMove(move);
     };
 };

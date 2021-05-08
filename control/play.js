@@ -5,10 +5,25 @@ $(
     $('#btn_restart').on('click', () => {
         window.location.href = '/';
     }),
-    $('.black').on('click', e => move.squareClick(e)),
-    $('.white').on('click', e => move.squareClick(e)),
+    $(document).on('click', '.black', e => move.squareClick(e)),
+    $(document).on('click', '.white', e => move.squareClick(e)),
+  //  $('.black').on('click', e => move.squareClick(e)),
+ //   $('.white').on('click', e => move.squareClick(e)),
     $('#btn_cancel').on('click', () => move.cancelMove()),
     $('#btn_autoplay').on('click', () => move.autoplay(move)),
+    $('#btn_save').on('click', () => {
+        move.saveGame();
+    }),
+    $('#btn_load').on('click', ()=> {
+        move.displaySavedGames()
+    }),
+    $('#gname').on('keyup', () => {
+        if ($('#gname').val().length === 0){
+            $('#btn_save').attr("disabled", true);
+        } else {
+            $('#btn_save').attr("disabled", false);
+        }
+    }),
     $('#btn_moves').on('click', () => {
         if ($('#btn_moves').text().substring(0, 8) === 'Possible') {
             $('#btn_moves').text('Log');
@@ -52,5 +67,5 @@ $(
                 $('#mode-indicator').text('MODE: YOU vs. WHITE');
                 break;
         }
-    })
+    }),
 );
