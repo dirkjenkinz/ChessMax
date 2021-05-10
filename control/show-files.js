@@ -10,15 +10,25 @@ const showFiles = move => {
         <td>
         <button type='button' class='btn btn-danger btn-block btn-log font-weight-bold btn-xs hit' id='hit${i}'>Load game</button>
         </td>
+        <td>
+        <button type='button' class='btn btn-danger btn-block btn-log font-weight-bold btn-xs del' id='del${i}'>Delete game</button>
+        </td>
         </tr>`
     }
 
     file_table += `</tbody></table>`;
     $('#game-log').html(file_table);
 
+    $(document).on('click', '.del', e => {
+        let num = e.target.id.substring(3);
+        console.log(move.storage[num][0])
+        window.localStorage.removeItem('_c_'+move.storage[num][0]);
+        move.displaySavedGames();
+    });
+
     $(document).on('click', '.hit', e => {
         const num = e.target.id.substring(3);
-        $('#gname').val(move.storage[num][0]);
+        $('#gname').val(move.storage[num][0])
         move.fen = move.storage[num][1];
         $('#piece-placement').text(move.fen.piecePlacement);
         $('#active-colour').text(move.fen.activeColour);
@@ -26,11 +36,12 @@ const showFiles = move => {
         $('#castling-ability').text(move.fen.castlingAbility);
         buildBoardFromFen(move);
         if (move.fen.activeColour === 'w'){
-            move.player = 'WHITE'
+            move.player = 'WHITE';
+            $('#to-play').text('WHITE to play.');
         } else {
             move.player = 'BLACK'
-        }
-        console.log(move.player)
+            $('#to-play').text('BLACK to play.');
+        };
         buildMap(move);
         let m1 = parseInt(move.to.id.substring(1));
         let m2 = parseInt(move.to.id.substring(0, 1)) + 1;
@@ -38,5 +49,6 @@ const showFiles = move => {
         move.log = [];
         showLog(move);
         $('#btn_moves').text('Possible Moves');
+        $('#btn_save').attr("disabled", false);
     });
 }

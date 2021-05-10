@@ -19,10 +19,11 @@ const makeMove = (move) => {
     buildMap(move);
     let m1 = parseInt(move.to.id.substring(1));
     let m2 = parseInt(move.to.id.substring(0, 1)) + 1;
-    move.notation_to = move.alpha[m1] + m2;
+
     updateLog(move);
     showLog(move);
     updateFen(move);
+
     if (move.player === 'WHITE') {
         move.player = 'BLACK'
     } else {
@@ -38,6 +39,8 @@ const makeMove = (move) => {
     } else if (move.wmate){
         $('#to-play').text('CHECK MATE - BLACK WINS');
     } else if (move.wcheck || move.bcheck) $('#to-play').text(move.player + ' to play. CHECK!');
+
+    $('#gname').keyup();
 
     checkForAutoPlay(move);
 };

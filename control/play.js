@@ -15,7 +15,7 @@ $(
         move.saveGame();
     }),
     $('#btn_load').on('click', ()=> {
-        move.displaySavedGames()
+        move.displaySavedGames();
     }),
     $('#gname').on('keyup', () => {
         if ($('#gname').val().length === 0){
@@ -67,5 +67,5 @@ $(
                 $('#mode-indicator').text('MODE: YOU vs. WHITE');
                 break;
         }
-    }),
+    })
 );

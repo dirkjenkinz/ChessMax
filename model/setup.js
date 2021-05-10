@@ -21,6 +21,7 @@ const startFen = {
 const saveGame = () => {
     let name = '_c_' + $('#gname').val();
     localStorage.setItem(name, JSON.stringify(move.fen));
+    $('#btn_save').attr("disabled", true);
 };
 
 const displaySavedGames = () => {
