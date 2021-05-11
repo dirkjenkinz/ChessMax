@@ -123,6 +123,8 @@ const check = (move, from, to) => {
 };
 
 const checkCastleForCheck = (move, from, to) => {
+    if (move.player === 'BLACK' && move.bcheck) return true;
+    if (move.player === 'WHITE' && move.wcheck) return true;
     let m = JSON.parse(JSON.stringify(move));
     if (from[0] === 'WK' && to[1] === 6) {                // white - castle king's side
         let f = from;
