@@ -12,7 +12,6 @@ const checkForAutoPlay = (move) => {
     };
 };
 
-
 const autoplay = move => {
     makeChart(move);
     let p = move.player.substring(0, 1);

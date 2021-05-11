@@ -6,25 +6,9 @@ const validateKing = (move) => {
             for (let j = 1; j < item.length; j++) {
                 if (item[j][0] === move.to.row && item[j][1] === move.to.column) {
                     if (move.player === 'WHITE') {                                          //if King moves, it may no longer castle
-                        if (move.from.row === 0 && move.from.column === 4 && move.to.row === 0 && move.to.column === 6){                // castle king's side
-                            $('#sq07').html("<img src='../images/XX.png' width='50'>");
-                            $('#sq05').html("<img src='../images/WR.png' width='50'>");
-                        } else if (move.from.row === 0 && move.from.column === 4 && move.to.row === 0 && move.to.column === 1){
-                            $('#sq00').html("<img src='../images/XX.png' width='50'>");
-                            $('#sq02').html("<img src='../images/WR.png' width='50'>");
-                        };
-                        move.fen.castlingAbility = move.fen.castlingAbility.replace('Q', '');
-                        move.fen.castlingAbility = move.fen.castlingAbility.replace('K', '');
+                        whiteCastle(move);
                     } else {
-                        if (move.from.row === 7 && move.from.column === 4 && move.to.row === 7 && move.to.column === 6){       // castle king's side
-                            $('#sq77').html("<img src='../images/XX.png' width='50'>");
-                            $('#sq75').html("<img src='../images/BR.png' width='50'>");
-                        } else if (move.from.row === 7 && move.from.column === 4 && move.to.row === 7 && move.to.column === 1){
-                            $('#sq70').html("<img src='../images/XX.png' width='50'>");
-                            $('#sq72').html("<img src='../images/BR.png' width='50'>");
-                        };
-                        move.fen.castlingAbility = move.fen.castlingAbility.replace('q', '');
-                        move.fen.castlingAbility = move.fen.castlingAbility.replace('k', '');
+                        blackCastle(move);
                     };
                     if (move.fen.castlingAbility === '') move.fen.castlingAbility = '-';
                     $('#castling-ability').text(move.fen.castlingAbility);
@@ -103,3 +87,28 @@ const checkCastlingAbility = (move) => {
     };
     return false;
 }
+
+const whiteCastle = move => {
+
+if (move.from.row === 0 && move.from.column === 4 && move.to.row === 0 && move.to.column === 6){                // castle king's side
+    $('#sq07').html("<img src='../images/XX.png' width='50'>");
+    $('#sq05').html("<img src='../images/WR.png' width='50'>");
+} else if (move.from.row === 0 && move.from.column === 4 && move.to.row === 0 && move.to.column === 1){        // castle queen's side
+    $('#sq00').html("<img src='../images/XX.png' width='50'>");
+    $('#sq02').html("<img src='../images/WR.png' width='50'>");
+};
+move.fen.castlingAbility = move.fen.castlingAbility.replace('Q', '');
+move.fen.castlingAbility = move.fen.castlingAbility.replace('K', '');
+};
+
+const blackCastle = move => {
+    if (move.from.row === 7 && move.from.column === 4 && move.to.row === 7 && move.to.column === 6){       // castle king's side
+        $('#sq77').html("<img src='../images/XX.png' width='50'>");
+        $('#sq75').html("<img src='../images/BR.png' width='50'>");
+    } else if (move.from.row === 7 && move.from.column === 4 && move.to.row === 7 && move.to.column === 1){
+        $('#sq70').html("<img src='../images/XX.png' width='50'>");
+        $('#sq72').html("<img src='../images/BR.png' width='50'>");
+    };
+    move.fen.castlingAbility = move.fen.castlingAbility.replace('q', '');
+    move.fen.castlingAbility = move.fen.castlingAbility.replace('k', '');
+};

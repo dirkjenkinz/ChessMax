@@ -4,7 +4,6 @@ const makeChart = (move) => {
     removeInvalidMoves(move);
 };
 
-
 // steps through the board - builds array showing what piece is on what square
 const buildChart = (move) => {
     move.chart = [];
@@ -15,7 +14,6 @@ const buildChart = (move) => {
         };
     };
 };
-
 
 // expands the chart array to show possible moves for each piece on the board
 const chartMoves = (move) => {
@@ -67,7 +65,9 @@ const removeInvalidMoves = (move) => {
         let current = [c[i][0]];
         for (let j = 1; j < item.length; j++) {         // step through 'to' components
             let to = item[j];
-            if (!check(move, from, to)) {               // if move does not result in check
+            if (to[2] === 'Xc') {
+                checkCastleForCheck(move, from, to);
+            } else if (!check(move, from, to)) {               // if move does not result in check
                 current.push(to)                        // preserve move
             };
         };
@@ -76,7 +76,7 @@ const removeInvalidMoves = (move) => {
 
     c = [];
 
-    for (let i = 0; i < temp1.length; i++){             // remove all supercomponents with no 'to' components left
+    for (let i = 0; i < temp1.length; i++) {             // remove all supercomponents with no 'to' components left
         if (temp1[i].length > 1) {
             c.push(temp1[i]);
         }

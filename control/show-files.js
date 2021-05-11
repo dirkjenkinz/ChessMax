@@ -19,13 +19,6 @@ const showFiles = move => {
     file_table += `</tbody></table>`;
     $('#game-log').html(file_table);
 
-    $(document).on('click', '.del', e => {
-        let num = e.target.id.substring(3);
-        console.log(move.storage[num][0])
-        window.localStorage.removeItem('_c_'+move.storage[num][0]);
-        move.displaySavedGames();
-    });
-
     $(document).on('click', '.hit', e => {
         const num = e.target.id.substring(3);
         $('#gname').val(move.storage[num][0])
@@ -51,4 +44,13 @@ const showFiles = move => {
         $('#btn_moves').text('Possible Moves');
         $('#btn_save').attr("disabled", false);
     });
-}
+
+    $(document).on('click', '.del', e => {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        let num = e.target.id.substring(3);
+        window.localStorage.removeItem('_c_'+move.storage[num][0]);
+        move.storage.splice(num, 1);
+        showFiles(move);
+    });
+};
