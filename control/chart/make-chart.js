@@ -66,7 +66,9 @@ const removeInvalidMoves = (move) => {
         for (let j = 1; j < item.length; j++) {         // step through 'to' components
             let to = item[j];
             if (to[2] === 'Xc') {
-                checkCastleForCheck(move, from, to);
+                if (!checkCastleForCheck(move, from, to)) {
+                    current.push(to)
+                }
             } else if (!check(move, from, to)) {               // if move does not result in check
                 current.push(to)                        // preserve move
             };
@@ -102,7 +104,6 @@ const check = (move, from, to) => {
     m.map[m.to.row][m.to.column] = m.piece;
     m.map[m.from.row][m.from.column] = 'XX';
     buildChart(m);
-    let bollocks = m.chart;
     chartMoves(m);
     if (m.chart.length > 0) {
         for (let i = 0; i < m.chart.length; i++) {
@@ -120,3 +121,37 @@ const check = (move, from, to) => {
     }
     return false;
 };
+
+const checkCastleForCheck = (move, from, to) => {
+    let m = JSON.parse(JSON.stringify(move));
+    if (from[0] === 'WK' && to[1] === 6) {                // white - castle king's side
+        let f = from;
+        let t = [0, 5, 'XX'];
+        if (check(m, f, t)) return true;
+        t = [0, 6, 'XX'];
+        return check(m, f, t);
+    } else if (from[0] === 'WK' && to[1] === 1) {
+        let f = from;
+        let t = [0, 3, 'XX'];
+        if (check(m, f, t)) return true;
+        t = [0, 2, 'XX'];
+        if (check(m, f, t)) return true;
+        t = [0, 1, 'XX'];
+        return check(m, f, t);
+    } else if (from[0] === 'BK' && to[1] === 6) {                // black - castle king's side
+        let f = from;
+        let t = [7, 5, 'XX'];
+        if (check(m, f, t)) return true;
+        t = [7, 6, 'XX'];
+        return check(m, f, t);
+    } else if (from[0] === 'BK' && to[1] === 1) {
+        let f = from;
+        let t = [7, 3, 'XX'];
+        if (check(m, f, t)) return true;
+        t = [7, 2, 'XX'];
+        if (check(m, f, t)) return true;
+        t = [7, 1, 'XX'];
+        return check(m, f, t);
+    }
+    return true;
+}

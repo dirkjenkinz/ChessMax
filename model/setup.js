@@ -36,6 +36,7 @@ const displaySavedGames = () => {
 };
 
 const squareClick = e => {
+    clearHighlights();
     if (move.phase === 'from') {
         phaseFrom(move, e);
     } else {

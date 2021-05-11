@@ -2,7 +2,7 @@ const mTable = '<table class="table table-sm mb-0 table-bordered" id="tab-move">
 const mHead0 = `<thead><tr><th colspan='3' class='black'>POSSIBLE MOVES</th></tr>`;
 const mHead1 = `<tr><th colspan='3' class='white'>`;
 const mHead2 = `</th></tr></thead><tbody>`;
-const mFrom1 = `<tr><td class='black' width='18%'><button type='button' class='btn btn-danger btn-block btn-log font-weight-bold btn-xs'>`;
+const mFrom1 = `<tr><td class='black' width='18%'><button type='button' class='btn btn-danger btn-block btn-log font-weight-bold btn-xs btn-f'`;
 const mFrom2 = `</button></td>`;
 const mTo1 = `<tr><td width='12%'><button type='button' class='btn btn-info btn-block btn-log btn-xs'>`;
 const mTo2 = `</button></td>`;
@@ -21,7 +21,7 @@ const showMoves = (move) => {
                 let index = move.pieces1.indexOf(data[0][0].substring(1, 2));
                 let piece = move.pieces2[index];
                 let position = move.alpha[data[0][2]] + (data[0][1] + 1);
-                move_table += `${mFrom1}${piece} ${position}${mFrom2}`
+                move_table += `${mFrom1} id='f${i}'>${piece} ${position}${mFrom2}`
                 for (let j = 1; j < data.length; j++) {
                     let d = data[j];
                     position = move.alpha[d[1]] + (d[0] + 1);
@@ -44,4 +44,28 @@ const showMoves = (move) => {
     };
     move_table += `</tbody></table>`;
     $('#game-log').html(move_table);
+
+    $(document).on('click', '.btn-f', e => {
+        clearHighlights();
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        let id = e.target.id.substring(1);
+        let element = move.chart[id];
+        let from = element[0];
+        $(`#sq${from[1]}${from[2]}`).html(`<img class='highlight-from' src='../images/${from[0]}.png' width='50'>`);
+        for (i = 1; i < element.length; i++){
+            let to = element[i];
+            if (to[2] === 'Be' || to[2] === 'Xc') to[2] = 'XX';
+            $(`#sq${to[0]}${to[1]}`).html(`<img class='highlight-to' src='../images/${to[2]}.png' width='50'>`);
+        }
+    });
+};
+
+const clearHighlights = () => {
+    for (let i =0; i < 8; i++){
+        for (let j=0; j <8; j++){
+            $(`#sq${i}${j} img`).removeClass('highlight-from');
+            $(`#sq${i}${j} img`).removeClass('highlight-to');
+        }
+    }
 };

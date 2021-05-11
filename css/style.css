@@ -66,6 +66,14 @@ img {
     border-radius: 50%;
  }
 
+ .highlight-from {
+     border: red solid 3px;
+ }
+
+ .highlight-to {
+    border: red dotted 3px;
+}
+
  #mode-select {
      padding-bottom: 20px;
  }
