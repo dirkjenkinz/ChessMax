@@ -9,7 +9,9 @@ const startFen = {
 
 const saveGame = () => {
     let name = '_c_' + $('#gname').val();
+    let status = '_cs_' + $('#gname').val();
     localStorage.setItem(name, JSON.stringify(move.fen));
+    localStorage.setItem(status, JSON.stringify(move.status));
     $('#btn_save').attr("disabled", true);
 };
 

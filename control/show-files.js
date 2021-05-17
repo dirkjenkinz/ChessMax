@@ -21,22 +21,30 @@ const showFiles = move => {
 
     $(document).on('click', '.hit', e => {
         const num = e.target.id.substring(3);
-        $('#gname').val(move.storage[num][0])
+        $('#gname').val(move.storage[num][0]);
         move.fen = move.storage[num][1];
         $('#piece-placement').text(move.fen.piecePlacement);
         $('#active-colour').text(move.fen.activeColour);
         $('#en-passant').text(move.fen.enPassantTargetSquare);
         $('#castling-ability').text(move.fen.castlingAbility);
         buildBoardFromFen(move);
+        move.status = getStatus(num);
         if (move.fen.activeColour === 'w') {
             move.player = 'WHITE';
-            $('#to-play').text('WHITE to play.');
+            if (move.status.wcheck) {
+                $('#to-play').text('WHITE to play. CHECK!');
+            } else {
+                $('#to-play').text('WHITE to play.');
+            }
         } else {
             move.player = 'BLACK'
-            $('#to-play').text('BLACK to play.');
+            if (move.status.bcheck) {
+                $('#to-play').text('BLACK to play. CHECK!');
+            } else {
+                $('#to-play').text('BLACK to play.');
+            }
         };
         buildMap(move);
-     
         let m1 = parseInt(move.to.id.substring(1));
         let m2 = parseInt(move.to.id.substring(0, 1)) + 1;
         move.notation_to = move.alpha[m1] + m2;
@@ -44,6 +52,8 @@ const showFiles = move => {
         showLog(move);
         $('#btn_moves').text('Possible Moves');
         $('#btn_save').attr("disabled", false);
+
+
     });
 
     $(document).on('click', '.del', e => {
@@ -55,3 +65,14 @@ const showFiles = move => {
         showFiles(move);
     });
 };
+
+const getStatus = (num) => {
+    storage = [];
+    for (var i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        if (key.substring(0, 4) === '_cs_') {
+            storage.push([localStorage.key(i).substring(4), JSON.parse(localStorage.getItem(localStorage.key(i)))]);
+        }
+    };
+    return storage[num][1];
+}
