@@ -28,22 +28,9 @@ const showFiles = move => {
         $('#en-passant').text(move.fen.enPassantTargetSquare);
         $('#castling-ability').text(move.fen.castlingAbility);
         buildBoardFromFen(move);
-        move.status = getStatus(num);
-        if (move.fen.activeColour === 'w') {
-            move.player = 'WHITE';
-            if (move.status.wcheck) {
-                $('#to-play').text('WHITE to play. CHECK!');
-            } else {
-                $('#to-play').text('WHITE to play.');
-            }
-        } else {
-            move.player = 'BLACK'
-            if (move.status.bcheck) {
-                $('#to-play').text('BLACK to play. CHECK!');
-            } else {
-                $('#to-play').text('BLACK to play.');
-            }
-        };
+        move.status = getStatus(move.storage[num][0]);
+        checkForCheckmate(move);
+        actionStatus(move);
         buildMap(move);
         let m1 = parseInt(move.to.id.substring(1));
         let m2 = parseInt(move.to.id.substring(0, 1)) + 1;
@@ -52,8 +39,6 @@ const showFiles = move => {
         showLog(move);
         $('#btn_moves').text('Possible Moves');
         $('#btn_save').attr("disabled", false);
-
-
     });
 
     $(document).on('click', '.del', e => {
@@ -66,13 +51,18 @@ const showFiles = move => {
     });
 };
 
-const getStatus = (num) => {
+const getStatus = (name) => {
     storage = [];
+    let item = '';
+    let num = -1;
     for (var i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
         if (key.substring(0, 4) === '_cs_') {
-            storage.push([localStorage.key(i).substring(4), JSON.parse(localStorage.getItem(localStorage.key(i)))]);
+            item = [localStorage.key(i).substring(4), JSON.parse(localStorage.getItem(localStorage.key(i)))];
+        
+            if (item[0] === name) return item[1];
         }
     };
-    return storage[num][1];
+    console.log('o crap');
+    return false;
 }

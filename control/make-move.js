@@ -33,7 +33,14 @@ const makeMove = (move) => {
     $('#to-play').text(move.player + ' to play.');
 
     checkForCheckmate(move);
+    actionStatus(move);
 
+    $('#gname').keyup();
+
+    checkForAutoPlay(move);
+};
+
+const actionStatus = (move) => {
     if (move.status.stalemate) {
         $('#to-play').text('STALEMATE');
         $('#overlay-text').text('STALEMATE');
@@ -47,8 +54,4 @@ const makeMove = (move) => {
         $('#overlay-text').text('CHECK MATE - BLACK WINS');
         $('#overlay').show();
     } else if (move.status.wcheck || move.status.bcheck) $('#to-play').text(move.player + ' to play. CHECK!');
-
-    $('#gname').keyup();
-
-    checkForAutoPlay(move);
-};
+}
