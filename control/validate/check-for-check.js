@@ -1,6 +1,6 @@
 const checkForCheck = (move) => {
-    move.wcheck = false;
-    move.bcheck = false;
+    move.status.wcheck = false;
+    move.status.bcheck = false;
     let tempMove = JSON.parse(JSON.stringify(move));
     tempMove.map[tempMove.to.row][tempMove.to.column] = tempMove.map[tempMove.from.row][tempMove.from.column];
     tempMove.map[tempMove.from.row][tempMove.from.column] = 'XX';
@@ -9,16 +9,16 @@ const checkForCheck = (move) => {
     for (let i = 0; i < tempMove.chart.length; i++) {
         for (let j = 1; j < tempMove.chart[i].length; j++) {
             if (tempMove.chart[i][j][2] === 'WK') {
-                move.wcheck = true;
+                move.status.wcheck = true;
             }
             if (tempMove.chart[i][j][2] === 'BK') {
-                move.bcheck = true;
+                move.status.bcheck = true;
             }
         };
     };
 };
 
-const checkForCheckMate = (move) => {
+const checkForCheckmate = (move) => {
     makeChart(move);
     let colour;
     if (move.player === 'WHITE') {
@@ -59,10 +59,19 @@ const checkForCheckMate = (move) => {
         }
     };
 
-    if (cTemp.length === 0 && move.player === 'WHITE' && move.wcheck) {
-        move.wmate = true;
+    if (cTemp.length === 0 && move.player === 'WHITE') {
+        if (move.status.wcheck) {
+            move.status.wmate = true;
+        } else {
+            move.status.stalemate = true;
+        }
     };
-    if (cTemp.length === 0 && move.player === 'BLACK' && move.bcheck) {
-        move.bmate = true;
+    if (cTemp.length === 0 && move.player === 'BLACK') {
+        if (move.status.bcheck) {
+            move.status.bmate = true;
+        } else {
+            move.status.stalemate = true;
+        }
     };
+    
 };

@@ -81,7 +81,7 @@ const selectPiece = (move) => {
     $('#pick').modal({
         backdrop: 'static',
         keyboard: false
-    }); 
+    });
 };
 
 const validatePawn = (move) => {

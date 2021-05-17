@@ -94,8 +94,8 @@ const check = (move, from, to) => {
         }
     }
     let m = JSON.parse(JSON.stringify(move));
-    m.wcheck = false;
-    m.bcheck = false;
+    m.status.wcheck = false;
+    m.status.bcheck = false;
     m.piece = from[0];
     m.from.row = from[1];
     m.from.column = from[2];
@@ -109,15 +109,15 @@ const check = (move, from, to) => {
         for (let i = 0; i < m.chart.length; i++) {
             for (let j = 1; j < m.chart[i].length; j++) {
                 if (m.chart[i][j][2] === 'WK') {
-                    m.wcheck = true;
+                    m.status.wcheck = true;
                 };
                 if (m.chart[i][j][2] === 'BK') {
-                    m.bcheck = true;
+                    m.status.bcheck = true;
                 };
             };
         };
-        if (m.wcheck && m.player === 'WHITE') return true;
-        if (m.bcheck && m.player === 'BLACK') return true;
+        if (m.status.wcheck && m.player === 'WHITE') return true;
+        if (m.status.bcheck && m.player === 'BLACK') return true;
     }
     return false;
 };

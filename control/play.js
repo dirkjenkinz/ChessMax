@@ -35,12 +35,13 @@ $(
         move.promotePiece(e.target.id);
     }),
     $('#btn-queen').on('click', e => {
+        makeChart(move);
         move.promoting = false;
         checkForAutoPlay(move);
     } ),
     $('#btn-rook').on('click', e => {
         move.promoting = false;
-        checkForAutoPlay(move);
+        checkForAutoPlay(move); 
     } ),
     $('#btn-bishop').on('click', e => {
         move.promoting = false;
@@ -65,5 +66,8 @@ $(
                 $('#mode-indicator').text('MODE: YOU vs. WHITE');
                 break;
         }
+    }),
+    $('#overlay').on('click', ()=>{
+        $("#overlay").hide();
     })
 );

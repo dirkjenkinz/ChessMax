@@ -27,6 +27,7 @@ const showMoves = (move) => {
                     position = move.alpha[d[1]] + (d[0] + 1);
                     piece = '';
                     if (d.length > 1) {
+                        if (d[2] === 'XX')
                         if (d[2] !== 'XX') piece = '>' + d[2].substring(1);
                         if (j % 6 === 0) {
                             move_table += `${mTo1}${position} ${piece}${mTo2}`

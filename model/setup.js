@@ -1,14 +1,3 @@
-const startMap = [
-    ['WR', 'WN', 'WB', 'WQ', 'WK', 'WB', 'WN', 'WR'],
-    ['WP', 'WP', 'WP', 'WP', 'WP', 'WP', 'WP', 'WP'],
-    ['XX', 'XX', 'XX', 'XX', 'XX', 'XX', 'XX', 'XX'],
-    ['XX', 'XX', 'XX', 'XX', 'XX', 'XX', 'XX', 'XX'],
-    ['XX', 'XX', 'XX', 'XX', 'XX', 'XX', 'XX', 'XX'],
-    ['XX', 'XX', 'XX', 'XX', 'XX', 'XX', 'XX', 'XX'],
-    ['BP', 'BP', 'BP', 'BP', 'BP', 'BP', 'BP', 'BP'],
-    ['BR', 'BN', 'BB', 'BQ', 'BK', 'BB', 'BN', 'BR']
-];
-
 const startFen = {
     'piecePlacement': 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR',
     'activeColour': 'w',
@@ -56,7 +45,7 @@ const start = () => {
     $('#halfmove-clock').text(move.fen.halfMoveClock);
     $('#fullmove-counter').text(move.fen.fullmoveCounter);
     $('#to-play').text(`${move.player} to play.`);
-    buildBoard(move.map);
+    buildBoardFromFen(move);
 };
 
 const cancelMove = () => {
@@ -121,14 +110,17 @@ let move = {
     bt: 0,
     wt: 0,
     captured: '',
-    bcheck: false,
-    wcheck: false,
-    bmate: false,
-    wmate: false,
+    status: {
+        bcheck: false,
+        wcheck: false,
+        bmate: false,
+        wmate: false,
+        stalemate: false
+    },
     squareValue: '',
     enPassant: [],
     fen: startFen,
-    map: startMap,
+    map: [],
     chart: [],
     storage: [],
     log: [],

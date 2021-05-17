@@ -37,11 +37,11 @@ const phaseTo = (move, e) => {
     let id = e.currentTarget.id;
     let legitimate = checkTo(move, id);
     checkForCheck(move);
-    if (move.player === 'WHITE' && move.wcheck) {
+    if (move.player === 'WHITE' && move.status.wcheck) {
         legitimate = false;
     };
     
-    if (move.player === 'BLACK' && move.bcheck) {
+    if (move.player === 'BLACK' && move.status.bcheck) {
         legitimate = false;
     }; 
 

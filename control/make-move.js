@@ -32,13 +32,21 @@ const makeMove = (move) => {
     move.phase = 'from';
     $('#to-play').text(move.player + ' to play.');
 
-    checkForCheckMate(move);
+    checkForCheckmate(move);
 
-    if (move.bmate){
+    if (move.status.stalemate) {
+        $('#to-play').text('STALEMATE');
+        $('#overlay-text').text('STALEMATE');
+        $('#overlay').show();
+    } else if (move.status.bmate){
         $('#to-play').text('CHECK MATE - WHITE WINS');
-    } else if (move.wmate){
+        $('#overlay-text').text('CHECK MATE - WHITE WINS');
+        $('#overlay').show();
+    } else if (move.status.wmate){
         $('#to-play').text('CHECK MATE - BLACK WINS');
-    } else if (move.wcheck || move.bcheck) $('#to-play').text(move.player + ' to play. CHECK!');
+        $('#overlay-text').text('CHECK MATE - BLACK WINS');
+        $('#overlay').show();
+    } else if (move.status.wcheck || move.status.bcheck) $('#to-play').text(move.player + ' to play. CHECK!');
 
     $('#gname').keyup();
 

@@ -28,7 +28,7 @@ const showFiles = move => {
         $('#en-passant').text(move.fen.enPassantTargetSquare);
         $('#castling-ability').text(move.fen.castlingAbility);
         buildBoardFromFen(move);
-        if (move.fen.activeColour === 'w'){
+        if (move.fen.activeColour === 'w') {
             move.player = 'WHITE';
             $('#to-play').text('WHITE to play.');
         } else {
@@ -36,6 +36,7 @@ const showFiles = move => {
             $('#to-play').text('BLACK to play.');
         };
         buildMap(move);
+     
         let m1 = parseInt(move.to.id.substring(1));
         let m2 = parseInt(move.to.id.substring(0, 1)) + 1;
         move.notation_to = move.alpha[m1] + m2;
@@ -49,7 +50,7 @@ const showFiles = move => {
         e.stopImmediatePropagation();
         e.preventDefault();
         let num = e.target.id.substring(3);
-        window.localStorage.removeItem('_c_'+move.storage[num][0]);
+        window.localStorage.removeItem('_c_' + move.storage[num][0]);
         move.storage.splice(num, 1);
         showFiles(move);
     });
